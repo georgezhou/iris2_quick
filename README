@@ -1,0 +1,68 @@
+IRIS2 Secondary eclipse quickly reduction pipeline
+George Zhou 
+September 2015
+
+################
+Dependencies
+- Python, numpy, scipy, pyfits, matplotlib
+- FITSH -- Download from http://fitsh.szofi.net/ -- The stable release I use is 
+	http://fitsh.szofi.net/download/fitsh/fitsh-0.9.1.tar.gz
+
+################
+Installing
+- Install FITSH 
+
+################
+Running the pipeline:
+
+1)
+Edit config_file
+-- Edit FILE_PATH to point to the path where the data is located
+-- Edit REFERENCE_IMAGE to the image that you want the extraction centroids to be based off
+-- Create an object_list file, prefereablly located inside the data directory
+	This object_list file should contain the ID and pixel coordinates of the target and reference stars
+	
+	Make an object_list file in the following format
+	###ID X Y
+	0 279 281
+	1 100 195
+	2 424 587
+	3 119 653
+	4 252 812y
+
+	Where object 0 is your target star
+
+-- Edit OBJECT_LIST to point to the location of the object_list file
+
+
+-- If you want to start the reduction from scratch, and remove all previous extractions, and re-reduce all data:
+	Edit DELETE_ALL true
+        If DELETE_ALL is set to false, only new frames will be reduced
+
+-- Edit BIAS_HEADER to enter the FITS header you chose for biases
+-- Edit FLAT_HEADER to enter the FITS header you chose for the dither frames
+-- Edit OBJECT_HEADER to enter the FITS header you chose for the stare frames
+
+OPTIONAL:
+-- Edit APERTURES to change the series of extraction apertures you want
+	The script takes SIX extraction apertures
+	The format is radius : background annulus inner radius : background annulus outer radius
+	Each aperture is comma separated
+	A good series of apertures to use is 4:7:10,6:7:10,8:8:10,10:10:10,12:12:10,14:14:10
+
+-- Leave the guiding options as is
+
+2) Running the first time reduction
+-- Set the first reduction going by 
+	python main.py
+	
+3) Keep the reduction pipeline looping -- it will search for new files and automatically reduce them
+	python run_reduction.py
+
+4) At the end of each reduction, the reduced light curve, guider XY offset inputs, and external parameter plots will be generated
+	Inspect those plots!
+	The guider.png tells you the X Y drift, and the guider corrections you need to give to the night assistant to keep the target on-pixel
+	
+5) At the end of the observing sequence, kill run_reduction.py
+
+

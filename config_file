@@ -1,0 +1,23 @@
+######################################
+### Config file for IRIS2 pipeline ###
+######################################
+
+FILE_PATH /Users/yanjunzhou/Documents/hat-south/2015/iris2_mockdata/ #Define file path
+REFERENCE_IMAGE 11sep0150.fits 
+OBJECT_LIST /Users/yanjunzhou/Documents/hat-south/2015/iris2_mockdata/object_list
+
+APERTURES 4:7:10,6:7:10,8:8:10,10:10:10,12:12:10,14:14:10
+
+### Options ###
+DELETE_ALL false #Delete all reduced data (true/false)
+
+### Header names
+BIAS_HEADER Dark10 ### object name for biases
+FLAT_HEADER WASP-46_dither ### object name for flats
+OBJECT_HEADER WASP-46
+
+### GUIDING OPTIONS
+FRAME_SCALE 0.4486
+GUIDER_SCALE 0.204
+
+
